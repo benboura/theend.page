@@ -1,5 +1,5 @@
 const express = require('express');
-// const mysql = require('mysql2');
+const mysql = require('mysql2');
 const cors = require('cors');
 
 const app = express();
@@ -8,11 +8,14 @@ app.use(express.json());
 
 // Connexion MySQL
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'UTILISATEUR_MYSQL',
-  password: 'MDP_MYSQL',
-  database: 'NOM_BDD'
+  host: '185.161.10.160',
+  user: 'intergalactique_thouaibat',
+  password: 'intergalactique_theendpage',
+  port: 3306,
+  database: 'intergalactique_theendpage'
 });
+
+
 
 db.connect((err) => {
   if (err) {
