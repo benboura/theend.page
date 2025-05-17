@@ -149,7 +149,25 @@ export default function Create() {
     window.location.href = `/end/${id}`
   }
 
-
+  // 2. Envoi serveur
+  fetch('/backend/insert_message.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log('Serveur:', data)
+      // 3. Redirection
+      window.location.href = `/end/${id}`
+    })
+    .catch((err) => {
+      console.error('Erreur serveur:', err)
+      alert("Une erreur est survenue côté serveur.")
+    })
+    
   //FORMULAIRE 
 
   return (
