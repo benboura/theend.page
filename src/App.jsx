@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './Navbar';
+import Footer from './Footer';
+
+import Create from './pages/Create';
+import Gallery from './pages/Gallery';
+import EndPage from './pages/EndPage';
+import Contact from './pages/Contact';
+import Connexion from './pages/Connexion';
+import Inscription from './pages/Inscription';
+=======
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Navbar from './Navbar';
@@ -8,6 +20,7 @@ import Gallery from './Gallery';
 import Connexion from './Connexion'; 
 import Inscription from './Inscription'; 
 import axios from 'axios'; // Pour récupérer les posts
+>>>>>>> aafac80a1786c31d13665370b3a2c92de292df9e
 
 export default function App() {
   const [posts, setPosts] = useState([
@@ -120,13 +133,25 @@ Si vous êtes dans cette situation, sachez que vous méritez d'être épanoui. O
 console.log(posts);
 
   return (
-    <Router>
-      <div className="h-screen flex flex-col items-center justify-center text-center bg-black text-white">
-        <Navbar />
+    <div className="flex flex-col min-h-screen bg-black text-white">
+      <Navbar />
 
-        <h1 className="text-5xl font-bold mb-4">TheEnd.Page</h1>
-        <p className="mb-6">Crée ta page de départ… avec style.</p>
+      <main className="flex-grow container mx-auto px-4 py-6">
+        <Routes>
+          <Route path="/" element={<Create />} />
+          <Route path="/create" element={<Create />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/end/:id" element={<EndPage />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/connexion" element={<Connexion />} />
+          <Route path="/inscription" element={<Inscription />} />
+        </Routes>
+      </main>
 
+<<<<<<< HEAD
+      <Footer />
+    </div>
+=======
         <Link
           to="/create"
           className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded"
@@ -177,5 +202,6 @@ console.log(posts);
         <Footer />
       </div>
     </Router>
+>>>>>>> aafac80a1786c31d13665370b3a2c92de292df9e
   );
 }
