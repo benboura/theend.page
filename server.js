@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
 const { Client } = require('pg');
 
 const app = express();
@@ -75,22 +76,12 @@ app.get('/api/contact', async (req, res) => {
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
-<<<<<<< HEAD
- 
-app.get('/api/', async (req, res) => {
-  // try {
-  //   const result = await client.query('SELECT * FROM pages'); // remplace "pages" par le nom de ta table
-  //   res.json(result.rows); // envoie les données au frontend
-  // } catch (err) {
-  //   console.error('Erreur dans /api/gallery :', err);
-  //   res.status(500).json({ error: 'Erreur serveur' });
-  // }
-=======
+
 
 // 🔈 Test
 app.get('/api/', (req, res) => {
   res.json({ message: "API theend opérationnelle 🚀" });
->>>>>>> 2925ca233db84dd6d861eda709a642bf49cbfd2e
+
 });
 
 // 🚀 Lancer le serveur
@@ -123,3 +114,93 @@ app.get('/api/page/:id', async (req, res) => {
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
+
+
+// Inscription
+
+router.post('/api/inscription', async (req, res) => {
+  const prenom = req.body.prenom;
+  const nom = req.body.nom;
+  const email = req.body.email;
+  const mot_de_passe = req.body.mot_de_passe;
+
+
+  if (!prenom || !nom || !email || !mot_de_passe) {
+    return res.status(400).json({ message: 'Champs manquants.' });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(mot_de_passe, 10);
+    const connection = await mysql.createConnection(dbConfig);
+
+    // Vérifier si l'email existe déjà
+    const [rows] = await connection.execute(
+      'SELECT id FROM utilisateurs WHERE email = ?',
+      [email]
+    );
+
+    if (rows.length > 0) {
+      await connection.end();
+      return res.status(409).json({ message: 'Email déjà utilisé.' });
+    }
+
+    // Insertion
+    await connection.execute(
+      `INSERT INTO utilisateurs (prenom, nom, email, mot_de_passe)
+       VALUES (?, ?, ?, ?)`,
+      [prenom, nom, email, hashedPassword]
+    );
+
+    await connection.end();
+    res.status(201).json({ message: 'Utilisateur ajouté avec succès.' });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Erreur serveur.' });
+  }
+});
+
+// Connexion
+
+router.post('/api/connexion', async (req, res) => {
+  const { email, mot_de_passe } = req.body;
+
+  if (!email || !mot_de_passe) {
+    return res.status(400).json({ message: 'Champs manquants.' });
+  }
+
+  try {
+    const connection = await mysql.createConnection(dbConfig);
+
+    const [rows] = await connection.execute(
+      'SELECT * FROM utilisateurs WHERE email = ?',
+      [email]
+    );
+
+    await connection.end();
+
+    if (rows.length === 0) {
+      return res.status(401).json({ message: 'Email ou mot de passe incorrect.' });
+    }
+
+    const utilisateur = rows[0];
+    const match = await bcrypt.compare(mot_de_passe, utilisateur.mot_de_passe);
+
+    if (!match) {
+      return res.status(401).json({ message: 'Email ou mot de passe incorrect.' });
+    }
+
+    // Tu peux ici générer un token si tu veux (JWT par exemple)
+    res.status(200).json({ message: 'Connexion réussie.', utilisateur: {
+      id: utilisateur.id,
+      nom: utilisateur.nom,
+      prenom: utilisateur.prenom,
+      email: utilisateur.email,
+    }});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Erreur serveur.' });
+  }
+});
+
+module.exports = router;

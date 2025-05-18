@@ -1,16 +1,4 @@
-<<<<<<< HEAD
-import { Routes, Route } from 'react-router-dom';
-import Navbar from './Navbar';
-import Footer from './Footer';
-
-import Create from './pages/Create';
-import Gallery from './pages/Gallery';
-import EndPage from './pages/EndPage';
-import Contact from './pages/Contact';
-import Connexion from './pages/Connexion';
-import Inscription from './pages/Inscription';
-=======
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link, Routes } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -20,7 +8,7 @@ import Gallery from './Gallery';
 import Connexion from './Connexion'; 
 import Inscription from './Inscription'; 
 import axios from 'axios'; // Pour récupérer les posts
->>>>>>> aafac80a1786c31d13665370b3a2c92de292df9e
+
 
 export default function App() {
   const [posts, setPosts] = useState([
@@ -148,10 +136,6 @@ console.log(posts);
         </Routes>
       </main>
 
-<<<<<<< HEAD
-      <Footer />
-    </div>
-=======
         <Link
           to="/create"
           className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded"
@@ -188,7 +172,9 @@ console.log(posts);
               </li>
             ))}
           </ul>
+            <Footer />
         </div>
+  </div>)
 
         {/* Configuration des routes */}
         <Switch>
@@ -199,9 +185,5 @@ console.log(posts);
           <Route path="/contact" component={Contact} />
         </Switch>
 
-        <Footer />
-      </div>
-    </Router>
->>>>>>> aafac80a1786c31d13665370b3a2c92de292df9e
-  );
+
 }
