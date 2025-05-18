@@ -1,11 +1,8 @@
-import React from "react";
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer style={{ textAlign: "center", padding: "1rem", backgroundColor: "#f0f0f0", fontSize: "0.9rem" }}>
-      Site déployé par l'équipe Intergalactique Web dans le cadre de la Webcup 2025. Tous droits réservés.
+    <footer className="bg-gray-900 text-gray-400 text-sm text-center py-4">
+      Site déployé par l'équipe Intergalactique Web – Webcup 2025 🚀
     </footer>
   );
-};
-
-export default Footer;
+}

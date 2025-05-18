@@ -1,41 +1,33 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import Contact from './Contact';
-import Create from './Create'; // Composant pour la création
-import Gallery from './Gallery'; // Composant pour la galerie
-import Connexion from './Connexion'; // Composant pour la connexion
-import Inscription from './Inscription'; // Composant pour l'inscription
+
+import Create from './pages/Create';
+import Gallery from './pages/Gallery';
+import EndPage from './pages/EndPage';
+import Contact from './pages/Contact';
+import Connexion from './pages/Connexion';
+import Inscription from './pages/Inscription';
 
 export default function App() {
   return (
-    <Router>
-      <div className="h-screen flex flex-col items-center justify-center text-center bg-black text-white">
-        <Navbar />
+    <div className="flex flex-col min-h-screen bg-black text-white">
+      <Navbar />
 
-        <h1 className="text-5xl font-bold mb-4">TheEnd.Page</h1>
-        <p className="mb-6">Crée ta page de départ… avec style.</p>
+      <main className="flex-grow container mx-auto px-4 py-6">
+        <Routes>
+          <Route path="/" element={<Create />} />
+          <Route path="/create" element={<Create />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/end/:id" element={<EndPage />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/connexion" element={<Connexion />} />
+          <Route path="/inscription" element={<Inscription />} />
+        </Routes>
+      </main>
 
-        <Link
-          to="/create"
-          className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded"
-        >
-          Commencer
-        </Link>
-
-        {/* Configuration des routes */}
-        <Switch>
-          <Route path="/create" component={Create} />
-          <Route path="/gallery" component={Gallery} />
-          <Route path="/connexion" component={Connexion} />
-          <Route path="/inscription" component={Inscription} />
-          <Route path="/contact" component={Contact} />
-        </Switch>
-
-        <Footer />
-      </div>
-    </Router>
+      <Footer />
+    </div>
   );
 }
 
