@@ -59,7 +59,7 @@ app.post('/api/create', async (req, res) => {
     await client.query(
       'INSERT INTO end_pages (id, utilisateur_id, title, image_url, message, categorie, tone, gif_url, video_url) VALUES ($1, $2, $3, $4)',
       [id, tone, message, media]
-    );
+    );   b
 
     res.status(201).json({ message: 'Message enregistré avec succès.' });
   } catch (err) {
@@ -78,7 +78,7 @@ app.get('/api/contact', async (req, res) => {
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
-
+ 
 app.get('/api/', async (req, res) => {
   // try {
   //   const result = await client.query('SELECT * FROM pages'); // remplace "pages" par le nom de ta table
