@@ -131,5 +131,6 @@ export default function CreatePage() {
         </button>
       </form>
     </div>
-  );
+
+  )
 }
