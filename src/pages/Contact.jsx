@@ -43,8 +43,7 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <Navbar />
-
+     
       <div className="max-w-xl mx-auto p-6">
         <h1 className="text-3xl font-bold text-center mb-4">Contact</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -82,7 +81,7 @@ export default function Contact() {
         </form>
       </div>
 
-      <Footer />
+     
     </div>
   );
 }
